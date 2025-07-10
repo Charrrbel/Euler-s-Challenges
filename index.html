@@ -7,6 +7,3144 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --beige: #F5F5DC;
+    --dark-blue: #1B2951;
+    --gold: #FFD700;
+    --light-gray: #f8f9fa;
+    --dark-gray: #333;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    color: var(--dark-gray);
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Navigation */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(27, 41, 81, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--beige);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.nav-logo:hover {
+    color: var(--gold);
+}
+
+.nav-logo i {
+    font-size: 1.8rem;
+    color: var(--gold);
+    animation: pulse 2s ease-in-out infinite alternate;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 2rem;
+}
+
+.nav-item {
+    position: relative;
+}
+
+.nav-link {
+    color: var(--beige);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+    display: block;
+}
+
+.nav-link:hover {
+    color: var(--gold);
+    background: rgba(255, 215, 0, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 215, 0, 0.2);
+}
+
+.nav-link.active {
+    color: var(--gold);
+    background: rgba(255, 215, 0, 0.15);
+    box-shadow: 0 2px 4px rgba(255, 215, 0, 0.1);
+}
+
+.nav-link.active:hover {
+    background: rgba(255, 215, 0, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background: transparent;
+    border: none;
+}
+
+.hamburger:hover {
+    background: rgba(255, 215, 0, 0.1);
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: var(--beige);
+    margin: 3px 0;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+    background: var(--gold);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+    background: var(--gold);
+}
+
+.navbar.scrolled {
+    background: rgba(27, 41, 81, 0.98);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+.nav-overlay {
+    display: none;
+    position: fixed;
+    top: 80px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Hero Section */
+.hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg,
+        var(--beige) 0%,
+        #f0f0e6 30%,
+        #e6e6d9 60%,
+        var(--dark-blue) 100%);
+    padding-top: 80px;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        radial-gradient(ellipse at top left, rgba(255, 215, 0, 0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at bottom right, rgba(27, 41, 81, 0.1) 0%, transparent 60%),
+        radial-gradient(ellipse at center, rgba(255, 215, 0, 0.05) 0%, transparent 70%);
+    z-index: 1;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background:
+        conic-gradient(from 0deg at 50% 50%,
+            transparent 0deg,
+            rgba(255, 215, 0, 0.02) 60deg,
+            transparent 120deg,
+            rgba(27, 41, 81, 0.02) 180deg,
+            transparent 240deg,
+            rgba(255, 215, 0, 0.02) 300deg,
+            transparent 360deg);
+    animation: rotate-slow 60s linear infinite;
+    z-index: 1;
+    opacity: 0.7;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.hero-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: var(--dark-blue);
+}
+
+.hero-logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.hero-logo i {
+    font-size: 3rem;
+    color: var(--gold);
+    animation: rotate 4s linear infinite;
+}
+
+.hero-logo span {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--dark-blue);
+    opacity: 0.8;
+}
+
+.hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 4.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--dark-blue) 0%, #2c4a7a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-subtitle {
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+    color: var(--dark-blue);
+    opacity: 0.8;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.euler-quote {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+    border-radius: 15px;
+    border-left: 5px solid var(--gold);
+    margin: 2rem 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.euler-quote::before {
+    content: '"';
+    position: absolute;
+    top: -15px;
+    left: 15px;
+    font-size: 4rem;
+    color: var(--gold);
+    font-family: 'Playfair Display', serif;
+    line-height: 1;
+}
+
+.euler-quote blockquote {
+    font-style: italic;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    color: var(--dark-blue);
+}
+
+.euler-quote cite {
+    font-size: 0.95rem;
+    color: var(--dark-blue);
+    opacity: 0.7;
+    font-weight: 500;
+}
+
+.cta-container {
+    margin-top: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.cta-button {
+    background: linear-gradient(135deg, var(--gold) 0%, #ffed4e 100%);
+    color: var(--dark-blue);
+    border: none;
+    padding: 1.2rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.5s;
+}
+
+.cta-button:hover::before {
+    left: 100%;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(255, 215, 0, 0.4);
+}
+
+.cta-button:active {
+    transform: translateY(-1px);
+}
+
+.hero-visual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.euler-portrait-section {
+    position: relative;
+    text-align: center;
+}
+
+.portrait-container {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    margin: 0 auto 2rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 6px solid var(--gold);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    background: var(--beige);
+    transition: all 0.3s ease;
+}
+
+.portrait-container:hover {
+    transform: scale(1.05);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.euler-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.portrait-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--beige) 0%, #e8e8d0 100%);
+    color: var(--dark-blue);
+    font-size: 5rem;
+}
+
+.euler-info {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+    backdrop-filter: blur(10px);
+}
+
+.euler-info h3 {
+    color: var(--dark-blue);
+    margin-bottom: 0.5rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+}
+
+.euler-info p {
+    color: var(--dark-blue);
+    opacity: 0.8;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.mathematical-symbols {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    font-size: 2.5rem;
+    color: var(--gold);
+    flex-wrap: wrap;
+}
+
+.mathematical-symbols span {
+    display: inline-block;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+    padding: 0.5rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+}
+
+.mathematical-symbols span:hover {
+    color: #ffed4e;
+    transform: scale(1.3) rotate(15deg);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.mathematical-symbols span:nth-child(1) { animation: float 3s ease-in-out 0s infinite alternate; }
+.mathematical-symbols span:nth-child(2) { animation: float 3s ease-in-out 0.5s infinite alternate; }
+.mathematical-symbols span:nth-child(3) { animation: float 3s ease-in-out 1s infinite alternate; }
+.mathematical-symbols span:nth-child(4) { animation: float 3s ease-in-out 1.5s infinite alternate; }
+.mathematical-symbols span:nth-child(5) { animation: float 3s ease-in-out 2s infinite alternate; }
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-12px); }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes rotate-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    100% { opacity: 0.7; }
+}
+
+/* Section Styles */
+section {
+    padding: 5rem 0;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: var(--dark-blue);
+    margin-bottom: 1rem;
+}
+
+.euler-quote-small {
+    font-style: italic;
+    color: var(--dark-blue);
+    opacity: 0.8;
+    margin-top: 1rem;
+}
+
+/* About Section */
+.about {
+    background: var(--light-gray);
+}
+
+.about-text h3 {
+    font-size: 2rem;
+    color: var(--dark-blue);
+    margin-bottom: 1rem;
+}
+
+.about-text p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+}
+
+.mission-points {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.point {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.point i {
+    font-size: 2rem;
+    color: var(--gold);
+}
+
+/* Add these styles to your existing proto.css file */
+
+/* Archive Section Styling */
+.archive {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 80px 0;
+}
+
+.archive .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.archive .section-header h2 {
+    font-size: 2.5rem;
+    color: var(--dark-blue);
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.archive .section-header p {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Archive Grid */
+.archive-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+/* Edition Cards */
+.edition-card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid transparent;
+}
+
+.edition-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--gold), var(--dark-blue));
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.edition-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    border-color: var(--gold);
+}
+
+.edition-card:hover::before {
+    transform: scaleX(1);
+}
+
+.edition-year {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--dark-blue);
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.edition-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 25px;
+    text-align: center;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.edition-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.edition-stats span {
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    padding: 8px 15px;
+    background: #f8f9fa;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.edition-stats span i {
+    margin-right: 10px;
+    color: var(--gold);
+    width: 16px;
+}
+
+.edition-card:hover .edition-stats span {
+    background: rgba(212, 175, 55, 0.1);
+    color: var(--text-color);
+}
+
+.edition-symbol {
+    font-size: 4rem;
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.3;
+    font-weight: 300;
+    transition: all 0.3s ease;
+}
+
+.edition-card:hover .edition-symbol {
+    opacity: 0.8;
+    transform: scale(1.1);
+}
+
+/* Loading and Empty States */
+.loading-editions {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+}
+
+.no-editions {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 100px 20px;
+    color: var(--text-muted);
+}
+
+.no-editions i {
+    font-size: 5rem;
+    margin-bottom: 30px;
+    opacity: 0.3;
+    color: var(--dark-blue);
+}
+
+.no-editions h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+.no-editions p {
+    font-size: 1.1rem;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background-color: white;
+    margin: 2% auto;
+    padding: 0;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: slideIn 0.3s ease;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes slideIn {
+    from { 
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to { 
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.close {
+    position: absolute;
+    right: 25px;
+    top: 25px;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+    z-index: 1001;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.close:hover {
+    color: var(--dark-blue);
+    background: rgba(0, 0, 0, 0.1);
+}
+
+/* Modal Content Styling */
+.edition-modal-header {
+    background: linear-gradient(135deg, var(--dark-blue), #2c5aa0);
+    color: white;
+    padding: 50px 40px;
+    text-align: center;
+    border-radius: 20px 20px 0 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.edition-modal-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(180deg); }
+}
+
+.edition-symbol-large {
+    font-size: 6rem;
+    opacity: 0.3;
+    margin-bottom: 20px;
+    font-weight: 300;
+}
+
+.edition-modal-header h2 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.edition-modal-header h3 {
+    font-size: 1.3rem;
+    opacity: 0.9;
+    font-weight: 400;
+}
+
+/* Stats Grid */
+.edition-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 40px;
+    background: #f8f9fa;
+}
+
+.stat-card {
+    background: white;
+    padding: 30px 20px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-card i {
+    font-size: 2.5rem;
+    color: var(--gold);
+    margin-bottom: 15px;
+}
+
+.stat-number {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--dark-blue);
+    margin-bottom: 8px;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Podium Section */
+.podium-section {
+    padding: 40px;
+}
+
+.podium-section h4 {
+    font-size: 1.5rem;
+    color: var(--dark-blue);
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.podium-section h4 i {
+    color: var(--gold);
+}
+
+.podium-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.podium-place {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.podium-place:hover {
+    transform: translateY(-3px);
+}
+
+.podium-place.gold {
+    border-left: 5px solid #FFD700;
+    background: linear-gradient(135deg, #fff9e6, white);
+}
+
+.podium-place.silver {
+    border-left: 5px solid #C0C0C0;
+    background: linear-gradient(135deg, #f5f5f5, white);
+}
+
+.podium-place.bronze {
+    border-left: 5px solid #CD7F32;
+    background: linear-gradient(135deg, #fff5f0, white);
+}
+
+.medal-icon {
+    font-size: 2rem;
+}
+
+.medal-icon i {
+    color: var(--gold);
+}
+
+.winner-info {
+    flex: 1;
+}
+
+.winner-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--dark-blue);
+    margin-bottom: 5px;
+}
+
+.winner-school {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.winner-score {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--gold);
+}
+
+.place-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--dark-blue);
+    opacity: 0.3;
+}
+
+/* Downloads Section */
+.downloads-section {
+    padding: 40px;
+    background: #f8f9fa;
+    border-radius: 0 0 20px 20px;
+}
+
+.downloads-section h4 {
+    font-size: 1.5rem;
+    color: var(--dark-blue);
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.downloads-section h4 i {
+    color: var(--gold);
+}
+
+.download-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.download-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.download-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.download-card i {
+    font-size: 2.5rem;
+    color: #dc3545;
+}
+
+.download-info {
+    flex: 1;
+}
+
+.download-info h5 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--dark-blue);
+    margin-bottom: 5px;
+}
+
+.download-info p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.download-btn {
+    background: var(--gold);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.2rem;
+}
+
+.download-btn:hover {
+    background: var(--dark-blue);
+    transform: scale(1.1);
+}
+
+/* Loading States */
+.loading-container {
+    padding: 80px 40px;
+    text-align: center;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid var(--dark-blue);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-container p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
+
+/* Error States */
+.error-container {
+    padding: 80px 40px;
+    text-align: center;
+}
+
+.error-container i {
+    font-size: 4rem;
+    color: #dc3545;
+    margin-bottom: 20px;
+}
+
+/* Error States - continued */
+.error-container h3 {
+    color: var(--dark-blue);
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.error-container p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+}
+
+.close-btn {
+    background: var(--dark-blue);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+    background: var(--gold);
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .archive {
+        padding: 60px 0;
+    }
+    
+    .archive .section-header h2 {
+        font-size: 2rem;
+    }
+    
+    .archive-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        margin-top: 30px;
+    }
+    
+    .edition-card {
+        padding: 30px 20px;
+    }
+    
+    .edition-year {
+        font-size: 2.5rem;
+    }
+    
+    .edition-title {
+        font-size: 1.1rem;
+        min-height: 50px;
+    }
+    
+    .edition-symbol {
+        font-size: 3rem;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 5% auto;
+        max-height: 85vh;
+    }
+    
+    .edition-modal-header {
+        padding: 40px 20px;
+    }
+    
+    .edition-symbol-large {
+        font-size: 4rem;
+    }
+    
+    .edition-modal-header h2 {
+        font-size: 2rem;
+    }
+    
+    .edition-modal-header h3 {
+        font-size: 1.1rem;
+    }
+    
+    .edition-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 30px 20px;
+        gap: 15px;
+    }
+    
+    .stat-card {
+        padding: 20px 15px;
+    }
+    
+    .stat-card i {
+        font-size: 2rem;
+    }
+    
+    .stat-number {
+        font-size: 1.8rem;
+    }
+    
+    .podium-section {
+        padding: 30px 20px;
+    }
+    
+    .podium-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .podium-place {
+        padding: 20px;
+        gap: 15px;
+    }
+    
+    .downloads-section {
+        padding: 30px 20px;
+    }
+    
+    .download-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .download-card {
+        padding: 20px;
+        gap: 15px;
+    }
+    
+    .download-card i {
+        font-size: 2rem;
+    }
+    
+    .download-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
+    }
+    
+    .close {
+        right: 15px;
+        top: 15px;
+        font-size: 1.5rem;
+        width: 35px;
+        height: 35px;
+    }
+}
+
+@media (max-width: 480px) {
+    .edition-stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stat-card {
+        padding: 25px 20px;
+    }
+    
+    .podium-place {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .place-number {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 1.5rem;
+    }
+    
+    .download-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+    
+    .download-btn {
+        align-self: center;
+    }
+}
+
+/* Smooth transitions for all interactive elements - continued */
+.edition-card,
+.stat-card,
+.podium-place,
+.download-card,
+.download-btn,
+.close-btn {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Custom scrollbar for modal */
+.modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: var(--gold);
+    border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+    background: var(--dark-blue);
+}
+
+/* Focus states for accessibility */
+.edition-card:focus,
+.download-btn:focus,
+.close-btn:focus,
+.close:focus {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+}
+
+/* Animation for edition cards on load */
+.edition-card {
+    animation: slideUp 0.6s ease forwards;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.edition-card:nth-child(1) { animation-delay: 0.1s; }
+.edition-card:nth-child(2) { animation-delay: 0.2s; }
+.edition-card:nth-child(3) { animation-delay: 0.3s; }
+.edition-card:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes slideUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hover effects for better interactivity */
+.edition-card:hover .edition-year {
+    color: var(--gold);
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+}
+
+.edition-card:hover .edition-title {
+    color: var(--dark-blue);
+    transition: all 0.3s ease;
+}
+
+/* Loading animation for edition cards */
+.loading-editions::after {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--text-muted);
+    border-top: 2px solid var(--dark-blue);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-left: 10px;
+}
+
+.edition-season {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.edition-card:hover .edition-season {
+    color: var(--dark-blue);
+}
+
+/* Enhanced modal backdrop */
+.modal {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+/* Pulse animation for download buttons */
+.download-btn:hover {
+    animation: pulse 0.6s ease-in-out;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Gradient text effect for edition titles */
+.edition-card:hover .edition-title {
+    background: linear-gradient(45deg, var(--dark-blue), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Shadow effects for depth */
+.modal-content {
+    box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.edition-card:hover {
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.15),
+        0 0 0 1px var(--gold);
+}
+
+
+
+/* Modalities Section */
+.modalites {
+    background: var(--dark-blue);
+    color: var(--beige);
+}
+
+.modalites .section-header h2,
+.modalites .euler-quote-small {
+    color: var(--beige);
+}
+
+.rules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.rule-section {
+    background: rgba(245, 245, 220, 0.1);
+    padding: 2rem;
+    border-radius: 15px;
+    border: 1px solid rgba(245, 245, 220, 0.2);
+}
+
+.rule-section h3 {
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.rule-section ul {
+    list-style: none;
+}
+
+.rule-section li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(245, 245, 220, 0.1);
+}
+
+.rule-section li:before {
+    content: "→";
+    color: var(--gold);
+    margin-right: 0.5rem;
+}
+
+/* Next Edition Section */
+.next-edition {
+    background: var(--beige);
+}
+
+.edition-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.detail-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.detail-card i {
+    font-size: 3rem;
+    color: var(--gold);
+    margin-bottom: 1rem;
+}
+
+.detail-card h3 {
+    color: var(--dark-blue);
+    margin-bottom: 1rem;
+}
+
+.detail-card p {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--dark-blue);
+    margin-bottom: 0.5rem;
+}
+
+.detail-card span {
+    color: var(--dark-gray);
+    opacity: 0.8;
+}
+
+.registration-cta {
+    text-align: center;
+    background: var(--dark-blue);
+    color: var(--beige);
+    padding: 3rem;
+    border-radius: 20px;
+}
+
+.registration-cta h3 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.register-btn {
+    background: var(--gold);
+    color: var(--dark-blue);
+    border: none;
+    padding: 1rem 3rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.register-btn:hover {
+    transform: scale(1.05);
+}
+
+.registration-note {
+    margin-top: 1rem;
+    opacity: 0.8;
+}
+
+/* Hall of Fame Section */
+.hall-of-fame {
+    background: var(--light-gray);
+}
+
+/* Search Container */
+.search-container {
+    position: relative;
+    max-width: 500px;
+    margin: 0 auto 3rem;
+}
+
+.search-container input {
+    width: 100%;
+    padding: 1rem 4rem 1rem 1rem;
+    border: 2px solid var(--dark-blue);
+    border-radius: 50px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.search-container input:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+}
+
+.search-container .fa-search {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--dark-blue);
+    pointer-events: none;
+}
+
+/* Search Clear Button */
+.search-clear {
+    position: absolute;
+    right: 3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--dark-blue);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+}
+
+.search-clear:hover {
+    color: #dc3545;
+    background: rgba(220, 53, 69, 0.1);
+    opacity: 1;
+}
+
+/* Legend */
+.legend {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.legend-item span:first-child {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.perfect-score {
+    background: var(--gold) !important;
+}
+
+.elegant-solution {
+    background: #9370DB !important;
+}
+
+.outstanding-performance {
+    background: #32CD32 !important;
+}
+
+/* Table Styles */
+.participants-table {
+    overflow-x: auto;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background: var(--dark-blue);
+    color: var(--beige);
+    font-weight: 600;
+}
+
+tr:hover {
+    background: rgba(255, 215, 0, 0.1);
+}
+
+/* Pagination Styles */
+.pagination-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+    padding: 1rem;
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+}
+
+.pagination-info {
+    color: var(--dark-blue);
+    font-size: 0.9rem;
+    font-weight: 500;
+    font-style: italic;
+}
+
+.pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.pagination-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    background: transparent;
+    border: 2px solid var(--dark-blue);
+    border-radius: 25px;
+    color: var(--dark-blue);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.pagination-btn:hover:not(:disabled) {
+    background: var(--dark-blue);
+    color: var(--beige);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(27, 41, 81, 0.25);
+}
+
+.pagination-btn:disabled {
+    border-color: #d4c4a8;
+    color: #8b7355;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.page-numbers {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.page-btn {
+    padding: 0.5rem 0.8rem;
+    background: transparent;
+    border: 1px solid #e8e0d5;
+    border-radius: 8px;
+    color: var(--dark-blue);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    min-width: 40px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.page-btn:hover {
+    background: #f5f3f0;
+    border-color: var(--dark-blue);
+    color: var(--dark-blue);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(27, 41, 81, 0.15);
+}
+
+.page-btn.active {
+    background: var(--dark-blue);
+    border-color: var(--dark-blue);
+    color: var(--beige);
+    box-shadow: 0 2px 8px rgba(27, 41, 81, 0.3);
+}
+
+.page-btn.active:hover {
+    background: #1e3a5f;
+    border-color: #1e3a5f;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(27, 41, 81, 0.4);
+}
+
+/* Footer */
+.footer {
+    background: var(--dark-blue);
+    color: var(--beige);
+    padding: 3rem 0 1rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.footer-section h4 {
+    color: var(--gold);
+    margin-bottom: 1rem;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-section a {
+    color: var(--beige);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-section a:hover {
+    color: var(--gold);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(245, 245, 220, 0.2);
+    opacity: 0.8;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 2rem;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: var(--dark-blue);
+}
+
+/* Search Message Styling */
+#searchMessage {
+    animation: fadeIn 0.3s ease-in;
+    text-align: center;
+    padding: 2rem;
+    color: var(--dark-blue);
+    font-style: italic;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    .nav-container {
+        padding: 0 1rem;
+    }
+    
+    .hamburger {
+        display: flex;
+    }
+    
+    .nav-menu {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        right: 0;
+        background: var(--dark-blue);
+        flex-direction: column;
+        padding: 2rem 0;
+        gap: 0;
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        border-bottom: 3px solid var(--gold);
+    }
+    
+    .nav-menu.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .nav-item {
+        width: 100%;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    
+    .nav-menu.active .nav-item {
+        animation: slideInDown 0.5s ease forwards;
+    }
+    
+    .nav-menu.active .nav-item:nth-child(1) { animation-delay: 0.1s; }
+    .nav-menu.active .nav-item:nth-child(2) { animation-delay: 0.2s; }
+    .nav-menu.active .nav-item:nth-child(3) { animation-delay: 0.3s; }
+    .nav-menu.active .nav-item:nth-child(4) { animation-delay: 0.4s; }
+    .nav-menu.active .nav-item:nth-child(5) { animation-delay: 0.5s; }
+    .nav-menu.active .nav-item:nth-child(6) { animation-delay: 0.6s; }
+    
+    .nav-link {
+        display: block;
+        padding: 1rem 2rem;
+        margin: 0.5rem 1rem;
+        border-radius: 15px;
+        font-size: 1.1rem;
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+        transform: none;
+        box-shadow: none;
+    }
+    
+    .nav-link:hover {
+        background: var(--gold);
+        color: var(--dark-blue);
+        border-color: var(--gold);
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
+    }
+    
+    .nav-link.active {
+        background: rgba(255, 215, 0, 0.2);
+        border-color: var(--gold);
+        color: var(--gold);
+        box-shadow: none;
+    }
+    
+    .nav-link.active:hover {
+        background: var(--gold);
+        color: var(--dark-blue);
+        transform: scale(1.05);
+    }
+    
+    .nav-overlay.active {
+        display: block;
+        opacity: 1;
+    }
+    
+    .hero {
+        padding-top: 70px;
+        min-height: auto;
+    }
+    
+    .hero-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        text-align: center;
+        padding: 2rem 1rem;
+    }
+    
+    .hero h1 {
+        font-size: 3rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .portrait-container {
+        width: 250px;
+        height: 250px;
+    }
+    
+    .mathematical-symbols {
+        font-size: 2rem;
+        gap: 1.5rem;
+    }
+    
+    .cta-container {
+        justify-content: center;
+    }
+    
+    .section-header h2 {
+        font-size: 2rem;
+    }
+    
+    .legend {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .rules-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .edition-details {
+        grid-template-columns: 1fr;
+    }
+    
+    .pagination-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .pagination-controls {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+    
+    .pagination-btn {
+        font-size: 0.8rem;
+        padding: 0.5rem 1rem;
+    }
+    
+    .page-btn {
+        padding: 0.4rem 0.7rem;
+        font-size: 0.85rem;
+        min-width: 35px;
+    }
+}
+
+@keyframes slideInDown {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-container {
+        height: 70px;
+        padding: 0 1rem;
+    }
+    
+    .nav-logo {
+        font-size: 1.3rem;
+    }
+    
+    .nav-logo i {
+        font-size: 1.5rem;
+    }
+    
+    .nav-menu {
+        top: 70px;
+    }
+    
+    .nav-link {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+    
+    .hamburger span {
+        width: 22px;
+        height: 2px;
+    }
+    
+    .nav-overlay {
+        top: 70px;
+    }
+    
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-content {
+        padding: 1.5rem 1rem;
+    }
+    
+    .portrait-container {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .mathematical-symbols {
+        font-size: 1.8rem;
+        gap: 1rem;
+    }
+    
+    .cta-button {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+    }
+    
+    .euler-quote {
+        padding: 1.5rem;
+    }
+    
+    .container {
+        padding: 0 15px;
+    }
+    
+    section {
+        padding: 3rem 0;
+    }
+}
+
+/* Additional animations and effects */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Focus styles for accessibility */
+button:focus,
+input:focus,
+a:focus {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+    .navbar,
+    .hamburger,
+    .cta-button,
+    .register-btn,
+    .pagination-container {
+        display: none;
+    }
+    
+    .hero {
+        padding-top: 0;
+    }
+    
+    * {
+        color: black !important;
+        background: white !important;
+    }
+}
+
+/* Search Message Styling */
+.search-message {
+    text-align: center;
+    padding: 1rem 2rem;
+    margin: 1rem auto 2rem;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 1rem;
+    max-width: 600px;
+    transition: all 0.3s ease;
+    animation: fadeIn 0.3s ease-in;
+}
+
+.search-message.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.search-message.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.search-message.info {
+    background: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+@keyframes fadeIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(-10px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+
+@keyframes confetti-fall {
+    0% {
+        transform: translateY(-10px) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes konami-bounce {
+    0% {
+        transform: translate(-50%, -50%) scale(0.3);
+        opacity: 0;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.05);
+    }
+    70% {
+        transform: translate(-50%, -50%) scale(0.9);
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+/* Remove the rainbow background animation completely */
+
+
+.konami-activated {
+    animation: rainbow-background 2s ease-in-out infinite alternate;
+}
+
+</style>
+<script>
+    // Global variables
+let allParticipants = [];
+let filteredData = [];
+let currentPage = 1;
+let konamiCode = [];
+const konamiSequence = [
+    'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
+    'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',
+    'KeyB', 'KeyA'
+];
+const participantsPerPage = 6;
+
+// Google Sheets API configuration - UPDATE THESE WITH YOUR VALUES
+const SHEET_ID = '11ibq1mWJQpRbQxd7hZYsJA59YebJM0Qu76xYe0o15rM'; // Replace with your actual sheet ID
+const API_KEY = 'AIzaSyC933iscQ9PC1XiAwONIL3hu8H85CKqCD0'; // Replace with your actual API key
+const RANGE = 'Sheet1!A2:F'; // Adjust range as needed
+
+// Available editions configuration
+const availableEditions = {
+    // '2025_summer': {
+    //     filename: '2025_summer.json',
+    //     displayYear: '2025',
+    //     season: 'Summer',
+    //     fallbackTitle: 'Summer Edition',
+    //     fallbackSymbol: '∮'
+    // },
+    // '2025_winter': {
+    //     filename: '2025_winter.json',
+    //     displayYear: '2025', 
+    //     season: 'Winter',
+    //     fallbackTitle: 'Winter Challenge',
+    //     fallbackSymbol: '∑'
+    // }
+};
+
+
+// Initialize the application
+document.addEventListener('DOMContentLoaded', function() {
+    // Set up event listeners
+    setupEventListeners();
+    
+    // Load data from Google Sheets
+    loadDataFromGoogleSheets();
+    
+    // Load available editions for archive
+    loadAvailableEditions();
+    
+    // Set up modal close functionality
+    setupModalHandlers();
+});
+
+
+// Function to load and display available editions
+async function openEdition(editionKey) {
+    const modal = document.getElementById('editionModal');
+    const modalContent = document.getElementById('modalContent');
+    
+    if (!modal || !modalContent) return;
+    
+    // Show modal with loading state
+    modal.style.display = 'block';
+    modalContent.innerHTML = `
+        <div class="loading-container">
+            <div class="loading-spinner"></div>
+            <p>Loading edition data...</p>
+        </div>
+    `;
+    
+    try {
+        const config = availableEditions[editionKey];
+        if (!config) {
+            throw new Error('Edition configuration not found');
+        }
+        
+        const response = await fetch(`./data/${config.filename}`);
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        
+        // Generate modal content
+        const seasonDisplay = config.season ? ` ${config.season}` : '';
+        const modalHTML = `
+            <div class="edition-modal-header">
+                <div class="edition-symbol-large">${data.symbol || config.fallbackSymbol}</div>
+                <h2>${config.displayYear}${seasonDisplay}</h2>
+                <h3>${data.title || config.fallbackTitle}</h3>
+            </div>
+            
+            <div class="edition-stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-users"></i>
+                    <div class="stat-number">${data.participants || 0}</div>
+                    <div class="stat-label">Participants</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-school"></i>
+                    <div class="stat-number">${data.schools || 0}</div>
+                    <div class="stat-label">Schools</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-trophy"></i>
+                    <div class="stat-number">${data.podium ? data.podium.length : 0}</div>
+                    <div class="stat-label">Winners</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-star"></i>
+                    <div class="stat-number">${data.averageScore || 0}</div>
+                    <div class="stat-label">Avg Score</div>
+                </div>
+            </div>
+            
+            ${data.podium && data.podium.length > 0 ? `
+                <div class="podium-section">
+                    <h4><i class="fas fa-medal"></i> Top Performers</h4>
+                    <div class="podium-container">
+                        ${data.podium.slice(0, 3).map((winner, index) => {
+                            const placeClass = winner.medal || (index === 0 ? 'gold' : index === 1 ? 'silver' : 'bronze');
+                            const placeNumber = index + 1;
+                            return `
+                                <div class="podium-place ${placeClass}">
+                                    <div class="medal-icon">
+                                        <i class="fas fa-medal"></i>
+                                    </div>
+                                    <div class="winner-info">
+                                        <div class="winner-name">${winner.name}</div>
+                                        <div class="winner-school">${winner.school}</div>
+                                        <div class="winner-score">Score: ${winner.score}/${data.maxScore || 35}</div>
+                                    </div>
+                                    <div class="place-number">${placeNumber}</div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            ` : ''}
+            
+            <div class="downloads-section">
+                <h4><i class="fas fa-download"></i> Downloads</h4>
+                <div class="download-grid">
+                    ${data.files && data.files.problems ? `
+                        <div class="download-card">
+                            <i class="fas fa-file-pdf"></i>
+                            <div class="download-info">
+                                <h5>Problem Set</h5>
+                                <p>Complete competition problems</p>
+                            </div>
+                            <button class="download-btn" onclick="downloadFile('${data.files.problems}')">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    ` : ''}
+                    
+                    ${data.files && data.files.solutions ? `
+                        <div class="download-card">
+                            <i class="fas fa-file-pdf"></i>
+                            <div class="download-info">
+                                <h5>Solutions</h5>
+                                <p>Detailed solutions and explanations</p>
+                            </div>
+                            <button class="download-btn" onclick="downloadFile('${data.files.solutions}')">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    ` : ''}
+                    
+                    ${data.files && data.files.jury_report ? `
+                        <div class="download-card">
+                            <i class="fas fa-file-pdf"></i>
+                            <div class="download-info">
+                                <h5>Jury Report</h5>
+                                <p>Detailed analysis and commentary from the jury</p>
+                            </div>
+                            <button class="download-btn" onclick="downloadFile('${data.files.jury_report}')">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    ` : ''}
+                </div>
+            </div>
+        `;
+        
+        modalContent.innerHTML = modalHTML;
+        
+    } catch (error) {
+        console.error('Error loading edition:', error);
+        modalContent.innerHTML = `
+            <div class="error-container">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>Unable to Load Edition</h3>
+                <p>Sorry, we couldn't load the data for this edition. Please try again later.</p>
+                <button class="close-btn" onclick="closeModal()">Close</button>
+            </div>
+        `;
+    }
+}
+
+
+
+// Function to load individual edition data
+async function loadEditionData(year) {
+    try {
+        const config = availableEditions[year];
+        if (!config) {
+            throw new Error(`No configuration found for year ${year}`);
+        }
+        
+        const response = await fetch(`./data/${config.filename}`);
+        if (!response.ok) {
+            throw new Error(`Failed to load data for ${year}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Error loading edition data:', error);
+        return null;
+    }
+}
+
+
+// Function to load and display available editions in the archive
+// Function to load and display available editions in the archive
+async function loadAvailableEditions() {
+    const archiveGrid = document.querySelector('.archive-grid');
+    if (!archiveGrid) return;
+
+    // Clear existing content
+    archiveGrid.innerHTML = '';
+
+    // Load each available edition
+    for (const [editionKey, config] of Object.entries(availableEditions)) {
+        try {
+            const response = await fetch(`./data/${config.filename}`);
+            if (response.ok) {
+                const data = await response.json();
+                
+                // Create edition card ONLY if data loads successfully
+                const editionCard = document.createElement('div');
+                editionCard.className = 'edition-card';
+                editionCard.onclick = () => openEdition(editionKey);
+                
+                editionCard.innerHTML = `
+                    <div class="edition-year">${config.displayYear}</div>
+                    <div class="edition-title">${data.title || config.fallbackTitle}</div>
+                    <div class="edition-stats">
+                        <span><i class="fas fa-users"></i> ${data.participants || 0} participants</span>
+                        <span><i class="fas fa-school"></i> ${data.schools || 0} schools</span>
+                    </div>
+                    <div class="edition-symbol">${data.symbol || config.fallbackSymbol}</div>
+                `;
+                
+                archiveGrid.appendChild(editionCard);
+            } else {
+                console.warn(`Could not load ${config.filename} - skipping card`);
+            }
+        } catch (error) {
+            console.error(`Error loading edition ${editionKey}:`, error);
+            // No fallback card - just skip this edition
+        }
+    }
+
+    // If no cards were loaded, show a message
+    if (archiveGrid.children.length === 0) {
+        archiveGrid.innerHTML = `
+            <div class="no-editions-message">
+                <i class="fas fa-info-circle"></i>
+                <p>No competition editions available at the moment.</p>
+            </div>
+        `;
+    }
+}
+
+
+
+
+
+
+
+
+// Download function
+function downloadFile(filename) {
+    const link = document.createElement('a');
+    link.href = `./downloads/${filename}`;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+// Set up modal handlers
+function setupModalHandlers() {
+    const modal = document.getElementById('editionModal');
+    const closeBtn = document.querySelector('.close');
+    
+    if (closeBtn) {
+        closeBtn.onclick = function() {
+            modal.style.display = 'none';
+        }
+    }
+    
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    }
+}
+
+// Load data from Google Sheets
+async function loadDataFromGoogleSheets() {
+    try {
+        showLoadingMessage();
+        
+        const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${RANGE}?key=${API_KEY}`;
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        if (data.values && data.values.length > 1) {
+            // Convert sheet data to participant objects
+            allParticipants = convertSheetDataToParticipants(data.values);
+            filteredData = [...allParticipants];
+            
+            hideLoadingMessage();
+            renderTable();
+        } else {
+            throw new Error('No data found in the sheet');
+        }
+        
+    } catch (error) {
+        console.error('Error loading data from Google Sheets:', error);
+        showErrorMessage('Failed to load participant data. Please try again later.');
+    }
+}
+
+// Convert Google Sheets data to participant objects
+function convertSheetDataToParticipants(sheetData) {
+    const headers = sheetData[0]; // First row contains headers
+    const participants = [];
+    
+    // Skip header row and process data
+    for (let i = 1; i < sheetData.length; i++) {
+        const row = sheetData[i];
+        
+        // Skip empty rows
+        if (!row || row.length === 0 || !row[0]) continue;
+        
+        const participant = {
+            name: row[0] || '',
+            country: row[1] || '',
+            year: row[2] || '',
+            score: row[3] || '',
+            achievement: row[4] || '',
+            recognition: row[5] || '',
+            class: determineParticipantClass(row[4]) // Determine CSS class based on achievement
+        };
+        
+        participants.push(participant);
+    }
+    
+    return participants;
+}
+
+// Determine CSS class based on achievement
+function determineParticipantClass(achievement) {
+    if (!achievement) return 'outstanding-performance';
+    
+    const achievementLower = achievement.toLowerCase();
+    
+    if (achievementLower.includes('perfect score')) {
+        return 'perfect-score';
+    } else if (achievementLower.includes('elegant solution')) {
+        return 'elegant-solution';
+    } else {
+        return 'outstanding-performance';
+    }
+}
+
+// Show loading message
+function showLoadingMessage() {
+    const tableBody = document.querySelector('#participantsTable tbody');
+    if (tableBody) {
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="6" style="text-align: center; padding: 2rem;">
+                    <i class="fas fa-spinner fa-spin" style="font-size: 1.5rem; color: var(--dark-blue);"></i>
+                    <br><br>
+                    Loading participants data...
+                </td>
+            </tr>
+        `;
+    }
+}
+
+// Hide loading message
+function hideLoadingMessage() {
+    // Loading message will be replaced by actual data in renderTable()
+}
+
+// Show error message
+function showErrorMessage(message) {
+    const tableBody = document.querySelector('#participantsTable tbody');
+    if (tableBody) {
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="6" style="text-align: center; padding: 2rem; color: #721c24;">
+                    <i class="fas fa-exclamation-triangle" style="font-size: 1.5rem; color: #721c24;"></i>
+                    <br><br>
+                    ${message}
+                    <br><br>
+                    <button onclick="loadDataFromGoogleSheets()" style="padding: 0.5rem 1rem; background: var(--dark-blue); color: white; border: none; border-radius: 5px; cursor: pointer;">
+                        Try Again
+                    </button>
+                </td>
+            </tr>
+        `;
+    }
+}
+
+// Set up all event listeners
+function setupEventListeners() {
+    // Search functionality
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.addEventListener('input', performSearch);
+        searchInput.addEventListener('keyup', function(e) {
+            if (e.key === 'Escape') {
+                this.value = '';
+                performSearch();
+            }
+        });
+    }
+    
+    // Mobile navigation
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+    }
+    
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                // Close mobile menu if open
+                if (navMenu && navMenu.classList.contains('active')) {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                }
+            }
+        });
+    });
+
+    // Konami code easter egg
+    document.addEventListener('keydown', function(e) {
+        konamiCode.push(e.code);
+        
+        // Keep only the last 10 keys
+        if (konamiCode.length > konamiSequence.length) {
+            konamiCode.shift();
+        }
+        
+        // Check if the sequence matches
+        if (konamiCode.length === konamiSequence.length) {
+            let matches = true;
+            for (let i = 0; i < konamiSequence.length; i++) {
+                if (konamiCode[i] !== konamiSequence[i]) {
+                    matches = false;
+                    break;
+                }
+            }
+            
+            if (matches) {
+                activateKonamiEasterEgg();
+                konamiCode = []; // Reset the sequence
+            }
+        }
+    });
+}  
+
+
+// Search functionality
+// Search functionality
+function performSearch() {
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+    
+    if (searchTerm === '') {
+        // Reset to show all participants
+        filteredData = [...allParticipants];
+        hideSearchMessage();
+    } else {
+        // Filter participants based on search term
+        filteredData = allParticipants.filter(participant => {
+            return participant.name.toLowerCase().includes(searchTerm) ||
+                participant.country.toLowerCase().includes(searchTerm) ||
+                participant.achievement.toLowerCase().includes(searchTerm) ||
+                participant.recognition.toLowerCase().includes(searchTerm) ||
+                participant.year.includes(searchTerm);
+        });
+        
+        // Show appropriate message
+        if (filteredData.length === 0) {
+            showSearchMessage(`No participants found matching "${searchTerm}"`, 'error');
+        } else if (filteredData.length === 1) {
+            showSearchMessage(`Found 1 participant matching "${searchTerm}"`, 'success');
+        } else {
+            showSearchMessage(`Found ${filteredData.length} participants matching "${searchTerm}"`, 'success');
+        }
+    }
+    
+    // Reset to first page and update display
+    currentPage = 1;
+    renderTable();
+}
+
+// Show search message
+function showSearchMessage(message, type = 'info') {
+    const searchMessage = document.getElementById('searchMessage');
+    if (!searchMessage) return;
+    
+    // Remove existing classes
+    searchMessage.classList.remove('success', 'error', 'info');
+    
+    // Add new class and content
+    searchMessage.classList.add(type);
+    searchMessage.textContent = message;
+    searchMessage.style.display = 'block';
+    
+    // Auto-hide after 5 seconds for success/info messages
+    if (type !== 'error') {
+        setTimeout(() => {
+            hideSearchMessage();
+        }, 5000);
+    }
+}
+
+// Hide search message
+function hideSearchMessage() {
+    const searchMessage = document.getElementById('searchMessage');
+    if (searchMessage) {
+        searchMessage.style.display = 'none';
+    }
+}
+
+// Render the table with current data
+function renderTable() {
+    const tableBody = document.querySelector('#participantsTable tbody');
+    if (!tableBody) return;
+    
+    // Clear existing content
+    tableBody.innerHTML = '';
+    
+    // If no data, show message
+    if (filteredData.length === 0) {
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="6" style="text-align: center; padding: 2rem; color: var(--dark-blue);">
+                    No participants to display
+                </td>
+            </tr>
+        `;
+        removePaginationControls();
+        return;
+    }
+    
+    // Calculate pagination
+    const startIndex = (currentPage - 1) * participantsPerPage;
+    const endIndex = startIndex + participantsPerPage;
+    const currentPageData = filteredData.slice(startIndex, endIndex);
+    
+    // Render rows
+    currentPageData.forEach(participant => {
+        const row = document.createElement('tr');
+        row.className = participant.class;
+        
+        row.innerHTML = `
+            <td>${participant.name}</td>
+            <td>${participant.country}</td>
+            <td>${participant.year}</td>
+            <td>${participant.score}</td>
+            <td>${participant.achievement}</td>
+            <td>${participant.recognition}</td>
+        `;
+        
+        tableBody.appendChild(row);
+    });
+    
+    // Update pagination
+    addPaginationControls();
+}
+
+// Add pagination controls to the page
+function addPaginationControls() {
+    const hallOfFameContent = document.querySelector('.hall-of-fame-content');
+    if (!hallOfFameContent) return;
+    
+    // Remove existing pagination
+    removePaginationControls();
+    
+    // Add new pagination
+    const totalPages = Math.ceil(filteredData.length / participantsPerPage);
+    if (totalPages > 1) {
+        const startItem = (currentPage - 1) * participantsPerPage + 1;
+        const endItem = Math.min(currentPage * participantsPerPage, filteredData.length);
+        
+        const paginationHTML = `
+            <div class="pagination-container">
+                <div id="paginationInfo" class="pagination-info">
+                    Showing ${startItem}-${endItem} of ${filteredData.length} participants
+                </div>
+                <div class="pagination-controls">
+                    <button id="prevBtn" class="pagination-btn prev-btn" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
+                        <i class="fas fa-chevron-left"></i>
+                        Previous
+                    </button>
+                    
+                    <div id="pageNumbers" class="page-numbers">
+                        ${generateSmartPagination(currentPage, totalPages)}
+                    </div>
+                    
+                    <button id="nextBtn" class="pagination-btn next-btn" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
+                        Next
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        hallOfFameContent.insertAdjacentHTML('beforeend', paginationHTML);
+    }
+}
+
+// Remove pagination controls
+function removePaginationControls() {
+    const existingPagination = document.querySelector('.pagination-container');
+    if (existingPagination) {
+        existingPagination.remove();
+    }
+}
+
+// Generate smart pagination
+function generateSmartPagination(current, total) {
+    if (total <= 1) return '';
+    
+    const delta = 3; // Number of pages to show around current page
+    const range = [];
+    const rangeWithDots = [];
+    
+    // Always include first page
+    range.push(1);
+    
+    // Add pages around current page
+    for (let i = Math.max(2, current - delta); i <= Math.min(total - 1, current + delta); i++) {
+        range.push(i);
+    }
+    
+    // Always include last page (if total > 1)
+    if (total > 1) {
+        range.push(total);
+    }
+    
+    // Remove duplicates and sort
+    const uniqueRange = [...new Set(range)].sort((a, b) => a - b);
+    
+    // Add ellipsis where needed
+    let prev = 0;
+    for (const page of uniqueRange) {
+        if (page - prev > 1) {
+            rangeWithDots.push('...');
+        }
+        rangeWithDots.push(page);
+        prev = page;
+    }
+    
+    // Generate HTML
+    return rangeWithDots.map(item => {
+        if (item === '...') {
+            return '<span class="page-ellipsis">...</span>';
+        } else {
+            const isActive = item === current ? 'active' : '';
+            return `<button class="page-btn ${isActive}" onclick="goToPage(${item})">${item}</button>`;
+        }
+    }).join('');
+}
+
+// Go to specific page
+function goToPage(page) {
+    const totalPages = Math.ceil(filteredData.length / participantsPerPage);
+    
+    if (page < 1 || page > totalPages) return;
+    
+    currentPage = page;
+    renderTable();
+    
+    // Remove focus from the clicked button
+    if (document.activeElement) {
+        document.activeElement.blur();
+    }
+    
+    // Scroll to center the table in the viewport
+    const participantsTable = document.querySelector('.participants-table');
+    if (participantsTable) {
+        // Calculate the position to center the table
+        const tableRect = participantsTable.getBoundingClientRect();
+        const tableTop = tableRect.top + window.pageYOffset;
+        const tableHeight = tableRect.height;
+        const viewportHeight = window.innerHeight;
+        
+        // Calculate scroll position to center the table
+        const scrollToPosition = tableTop - (viewportHeight / 2) + (tableHeight / 2);
+        
+        // Smooth scroll to the calculated position
+        window.scrollTo({
+            top: Math.max(0, scrollToPosition), // Ensure we don't scroll above the page
+            behavior: 'smooth'
+        });
+    }
+}
+
+// ADD ALL THESE FUNCTIONS AT THE VERY END:
+
+// Konami Code Easter Egg Activation
+function activateKonamiEasterEgg() {
+    createConfetti();
+    showKonamiMessage();
+    document.body.classList.add('konami-activated');
+    
+    setTimeout(() => {
+        document.body.classList.remove('konami-activated');
+        removeConfetti();
+    }, 10000);
+}
+
+// Create confetti effect
+function createConfetti() {
+    const colors = ['#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7'];
+    const confettiContainer = document.createElement('div');
+    confettiContainer.id = 'confetti-container';
+    confettiContainer.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 9999;
+    `;
+    
+    document.body.appendChild(confettiContainer);
+    
+    for (let i = 0; i < 50; i++) {
+        setTimeout(() => {
+            createConfettiPiece(confettiContainer, colors);
+        }, i * 100);
+    }
+}
+
+// Create individual confetti piece
+function createConfettiPiece(container, colors) {
+    const confetti = document.createElement('div');
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const size = Math.random() * 10 + 5;
+    const startX = Math.random() * window.innerWidth;
+    
+    confetti.style.cssText = `
+        position: absolute;
+        width: ${size}px;
+        height: ${size}px;
+        background: ${color};
+        top: -10px;
+        left: ${startX}px;
+        border-radius: ${Math.random() > 0.5 ? '50%' : '0'};
+        animation: confetti-fall ${Math.random() * 3 + 2}s linear forwards;
+    `;
+    
+    container.appendChild(confetti);
+    
+    setTimeout(() => {
+        if (confetti.parentNode) {
+            confetti.parentNode.removeChild(confetti);
+        }
+    }, 5000);
+}
+
+// Show Konami message
+function showKonamiMessage() {
+    const message = document.createElement('div');
+    message.id = 'konami-message';
+    message.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 2rem;
+        border-radius: 15px;
+        text-align: center;
+        z-index: 10000;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        animation: konami-bounce 0.6s ease-out;
+        font-family: 'Arial', sans-serif;
+    `;
+    
+    message.innerHTML = `
+        <h2 style="margin: 0 0 1rem 0; font-size: 2rem;">🎉 KONAMI CODE ACTIVATED! 🎉</h2>
+        <p style="margin: 0; font-size: 1.2rem;">You've unlocked the secret mathematician mode!</p>
+        <p style="margin: 0.5rem 0 0 0; font-size: 1rem; opacity: 0.9;">∫∑∏ Mathematical powers enhanced! ∏∑∫</p>
+    `;
+    
+    document.body.appendChild(message);
+    
+    setTimeout(() => {
+        if (message.parentNode) {
+            message.parentNode.removeChild(message);
+        }
+    }, 5000);
+}
+
+// Remove confetti
+function removeConfetti() {
+    const confettiContainer = document.getElementById('confetti-container');
+    if (confettiContainer) {
+        confettiContainer.remove();
+    }
+}
+
+// Konami Code Easter Egg Activation
+function activateKonamiEasterEgg() {
+    createConfetti();
+    showKonamiMessage();
+    
+    // Remove the rainbow effect - just keep it simple
+    setTimeout(() => {
+        removeConfetti();
+    }, 8000);
+}
+
+// Create confetti effect (keeping this but more subtle)
+function createConfetti() {
+    // More elegant gold/yellow color scheme
+    const colors = ['#FFD700', '#FFA500', '#FFFF00', '#F0E68C', '#DAA520'];
+    const confettiContainer = document.createElement('div');
+    confettiContainer.id = 'confetti-container';
+    confettiContainer.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 9999;
+    `;
+    
+    document.body.appendChild(confettiContainer);
+    
+    // Fewer confetti pieces for subtlety
+    for (let i = 0; i < 30; i++) {
+        setTimeout(() => {
+            createConfettiPiece(confettiContainer, colors);
+        }, i * 150);
+    }
+}
+
+// Show Konami message with Euler quote
+function showKonamiMessage() {
+    const eulerQuotes = [
+        "Mathematicians have tried in vain to this day to discover some order in the sequence of prime numbers, and we have reason to believe that it is a mystery into which the human mind will never penetrate.",
+        "Although to penetrate into the intimate mysteries of nature and thence to learn the true causes of phenomena is not allowed to us, nevertheless it can happen that a certain fictive hypothesis may suffice for explaining many phenomena.",
+        "Nothing takes place in the world whose meaning is not that of some maximum or minimum.",
+        "For since the fabric of the universe is most perfect and the work of a most wise Creator, nothing at all takes place in the universe in which some rule of maximum or minimum does not appear."
+    ];
+    
+    const randomQuote = eulerQuotes[Math.floor(Math.random() * eulerQuotes.length)];
+    
+    const message = document.createElement('div');
+    message.id = 'konami-message';
+    message.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+        color: #2c3e50;
+        padding: 2.5rem;
+        border-radius: 15px;
+        text-align: center;
+        z-index: 10000;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        animation: konami-bounce 0.6s ease-out;
+        font-family: 'Georgia', serif;
+        max-width: 600px;
+        border: 3px solid #DAA520;
+    `;
+    
+    message.innerHTML = `
+        <h2 style="margin: 0 0 1rem 0; font-size: 1.8rem; color: #8B4513;">🎓 Euler's Wisdom Unlocked! 🎓</h2>
+        <div style="margin: 1.5rem 0; padding: 1rem; background: rgba(255,255,255,0.3); border-radius: 10px; border-left: 4px solid #8B4513;">
+            <p style="margin: 0; font-size: 1.1rem; font-style: italic; line-height: 1.4;">"${randomQuote}"</p>
+        </div>
+        <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; opacity: 0.8; font-weight: bold;">— Leonhard Euler</p>
+    `;
+    
+    document.body.appendChild(message);
+    
+    // Remove message after 8 seconds
+    setTimeout(() => {
+        if (message.parentNode) {
+            message.parentNode.removeChild(message);
+        }
+    }, 8000);
+}
+
+console.log("🔍 Looking for easter eggs? The Konami Code might help...");
+</script>
 <body>
     <!-- Navigation -->
     <nav class="navbar">
@@ -434,1988 +3572,6 @@
             <div id="modalContent"></div>
         </div>
     </div>
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
-:root {
-    --beige: #F5F5DC;
-    --dark-blue: #1B2951;
-    --gold: #FFD700;
-    --light-gray: #f8f9fa;
-    --dark-gray: #333;
-}
-
-body {
-    font-family: 'Inter', sans-serif;
-    line-height: 1.6;
-    color: var(--dark-gray);
-    overflow-x: hidden;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* Navigation */
-/* Navbar - RESPONSIVE VERSION */
-/* Navbar - FIXED PC VERSION */
-/* Navbar - COMPLETE CLEAN VERSION */
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: rgba(27, 41, 81, 0.95);
-    backdrop-filter: blur(10px);
-    z-index: 1000;
-    transition: background 0.3s ease, box-shadow 0.3s ease;
-    border-bottom: 1px solid rgba(255, 215, 0, 0.1);
-}
-
-.nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 80px;
-}
-
-.nav-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--beige);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.nav-logo:hover {
-    color: var(--gold);
-}
-
-.nav-logo i {
-    font-size: 1.8rem;
-    color: var(--gold);
-    animation: pulse 2s ease-in-out infinite alternate;
-}
-
-/* Desktop Navigation Menu */
-.nav-menu {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    gap: 2rem;
-}
-
-.nav-item {
-    position: relative;
-}
-
-.nav-link {
-    color: var(--beige);
-    text-decoration: none;
-    font-weight: 500;
-    padding: 0.5rem 1rem;
-    border-radius: 25px;
-    transition: all 0.3s ease;
-    position: relative;
-    display: block;
-}
-
-.nav-link:hover {
-    color: var(--gold);
-    background: rgba(255, 215, 0, 0.1);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(255, 215, 0, 0.2);
-}
-
-.nav-link.active {
-    color: var(--gold);
-    background: rgba(255, 215, 0, 0.15);
-    box-shadow: 0 2px 4px rgba(255, 215, 0, 0.1);
-}
-
-.nav-link.active:hover {
-    background: rgba(255, 215, 0, 0.2);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
-}
-
-/* Hamburger Menu - Hidden on Desktop */
-.hamburger {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-    padding: 0.5rem;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    background: transparent;
-    border: none;
-}
-
-.hamburger:hover {
-    background: rgba(255, 215, 0, 0.1);
-}
-
-.hamburger span {
-    width: 25px;
-    height: 3px;
-    background: var(--beige);
-    margin: 3px 0;
-    transition: all 0.3s ease;
-    border-radius: 2px;
-}
-
-.hamburger.active span:nth-child(1) {
-    transform: rotate(45deg) translate(6px, 6px);
-    background: var(--gold);
-}
-
-.hamburger.active span:nth-child(2) {
-    opacity: 0;
-}
-
-.hamburger.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(6px, -6px);
-    background: var(--gold);
-}
-
-/* Navbar Scroll Effect */
-.navbar.scrolled {
-    background: rgba(27, 41, 81, 0.98);
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-}
-
-/* Mobile Menu Overlay */
-.nav-overlay {
-    display: none;
-    position: fixed;
-    top: 80px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-/* MOBILE STYLES */
-@media (max-width: 768px) {
-    .nav-container {
-        padding: 0 1rem;
-    }
-    
-    /* Show hamburger on mobile */
-    .hamburger {
-        display: flex;
-    }
-    
-    /* Mobile menu styles */
-    .nav-menu {
-        position: fixed;
-        top: 80px;
-        left: 0;
-        right: 0;
-        background: var(--dark-blue);
-        flex-direction: column;
-        padding: 2rem 0;
-        gap: 0;
-        transform: translateY(-100%);
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        border-bottom: 3px solid var(--gold);
-    }
-    
-    .nav-menu.active {
-        transform: translateY(0);
-        opacity: 1;
-        visibility: visible;
-    }
-    
-    .nav-item {
-        width: 100%;
-        text-align: center;
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    
-    .nav-menu.active .nav-item {
-        animation: slideInDown 0.5s ease forwards;
-    }
-    
-    .nav-menu.active .nav-item:nth-child(1) { animation-delay: 0.1s; }
-    .nav-menu.active .nav-item:nth-child(2) { animation-delay: 0.2s; }
-    .nav-menu.active .nav-item:nth-child(3) { animation-delay: 0.3s; }
-    .nav-menu.active .nav-item:nth-child(4) { animation-delay: 0.4s; }
-    .nav-menu.active .nav-item:nth-child(5) { animation-delay: 0.5s; }
-    .nav-menu.active .nav-item:nth-child(6) { animation-delay: 0.6s; }
-    
-    /* Mobile nav links */
-    .nav-link {
-        display: block;
-        padding: 1rem 2rem;
-        margin: 0.5rem 1rem;
-        border-radius: 15px;
-        font-size: 1.1rem;
-        border: 2px solid transparent;
-        transition: all 0.3s ease;
-        transform: none; /* Reset desktop transform */
-        box-shadow: none; /* Reset desktop shadow */
-    }
-    
-    .nav-link:hover {
-        background: var(--gold);
-        color: var(--dark-blue);
-        border-color: var(--gold);
-        transform: scale(1.05);
-        box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
-    }
-    
-    .nav-link.active {
-        background: rgba(255, 215, 0, 0.2);
-        border-color: var(--gold);
-        color: var(--gold);
-        box-shadow: none;
-    }
-    
-    .nav-link.active:hover {
-        background: var(--gold);
-        color: var(--dark-blue);
-        transform: scale(1.05);
-    }
-    
-    /* Show overlay on mobile */
-    .nav-overlay.active {
-        display: block;
-        opacity: 1;
-    }
-}
-
-@keyframes slideInDown {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Extra small devices */
-@media (max-width: 480px) {
-    .nav-container {
-        height: 70px;
-        padding: 0 1rem;
-    }
-    
-    .nav-logo {
-        font-size: 1.3rem;
-    }
-    
-    .nav-logo i {
-        font-size: 1.5rem;
-    }
-    
-    .nav-menu {
-        top: 70px;
-    }
-    
-    .nav-link {
-        padding: 0.8rem 1.5rem;
-        font-size: 1rem;
-    }
-    
-    .hamburger span {
-        width: 22px;
-        height: 2px;
-    }
-    
-    .nav-overlay {
-        top: 70px;
-    }
-}
-
-
-
-/* Hero Section - ALTERNATIVE FLOWING BACKGROUND */
-.hero {
-    min-height: 100vh;
-    position: relative;
-    display: flex;
-    align-items: center;
-    background: linear-gradient(135deg, 
-        var(--beige) 0%, 
-        #f0f0e6 30%, 
-        #e6e6d9 60%, 
-        var(--dark-blue) 100%);
-    padding-top: 80px;
-    overflow: hidden;
-}
-
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-        radial-gradient(ellipse at top left, rgba(255, 215, 0, 0.15) 0%, transparent 60%),
-        radial-gradient(ellipse at bottom right, rgba(27, 41, 81, 0.1) 0%, transparent 60%),
-        radial-gradient(ellipse at center, rgba(255, 215, 0, 0.05) 0%, transparent 70%);
-    z-index: 1;
-}
-
-.hero::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: 
-        conic-gradient(from 0deg at 50% 50%, 
-            transparent 0deg, 
-            rgba(255, 215, 0, 0.02) 60deg, 
-            transparent 120deg, 
-            rgba(27, 41, 81, 0.02) 180deg, 
-            transparent 240deg, 
-            rgba(255, 215, 0, 0.02) 300deg, 
-            transparent 360deg);
-    animation: rotate-slow 60s linear infinite;
-    z-index: 1;
-    opacity: 0.7;
-}
-
-@keyframes rotate-slow {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-
-
-
-
-.hero-content {
-    position: relative;
-    z-index: 2;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
-
-.hero-text {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    color: var(--dark-blue);
-}
-
-.hero-logo {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
-}
-
-.hero-logo i {
-    font-size: 3rem;
-    color: var(--gold);
-    animation: rotate 4s linear infinite;
-}
-
-@keyframes rotate {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-.hero-logo span {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--dark-blue);
-    opacity: 0.8;
-}
-
-.hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 4.5rem;
-    font-weight: 700;
-    line-height: 1.1;
-    margin-bottom: 1rem;
-    background: linear-gradient(135deg, var(--dark-blue) 0%, #2c4a7a 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.hero-subtitle {
-    font-size: 1.4rem;
-    margin-bottom: 2rem;
-    color: var(--dark-blue);
-    opacity: 0.8;
-    font-weight: 400;
-    line-height: 1.5;
-}
-
-.euler-quote {
-    background: rgba(255, 255, 255, 0.9);
-    padding: 2rem;
-    border-radius: 15px;
-    border-left: 5px solid var(--gold);
-    margin: 2rem 0;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    position: relative;
-}
-
-.euler-quote::before {
-    content: '"';
-    position: absolute;
-    top: -15px;
-    left: 15px;
-    font-size: 4rem;
-    color: var(--gold);
-    font-family: 'Playfair Display', serif;
-    line-height: 1;
-}
-
-.euler-quote blockquote {
-    font-style: italic;
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
-    line-height: 1.6;
-    color: var(--dark-blue);
-}
-
-.euler-quote cite {
-    font-size: 0.95rem;
-    color: var(--dark-blue);
-    opacity: 0.7;
-    font-weight: 500;
-}
-
-.cta-container {
-    margin-top: 2.5rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.cta-button {
-    background: linear-gradient(135deg, var(--gold) 0%, #ffed4e 100%);
-    color: var(--dark-blue);
-    border: none;
-    padding: 1.2rem 2.5rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
-    position: relative;
-    overflow: hidden;
-}
-
-.cta-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-    transition: left 0.5s;
-}
-
-.cta-button:hover::before {
-    left: 100%;
-}
-
-.cta-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 35px rgba(255, 215, 0, 0.4);
-}
-
-.cta-button:active {
-    transform: translateY(-1px);
-}
-
-.hero-visual {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-
-.euler-portrait-section {
-    position: relative;
-    text-align: center;
-}
-
-.portrait-container {
-    position: relative;
-    width: 320px;
-    height: 320px;
-    margin: 0 auto 2rem;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 6px solid var(--gold);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-    background: var(--beige);
-    transition: all 0.3s ease;
-}
-
-.portrait-container:hover {
-    transform: scale(1.05);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-}
-
-.euler-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.portrait-placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, var(--beige) 0%, #e8e8d0 100%);
-    color: var(--dark-blue);
-    font-size: 5rem;
-}
-
-.euler-info {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 1.5rem;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    margin-bottom: 2rem;
-    backdrop-filter: blur(10px);
-}
-
-.euler-info h3 {
-    color: var(--dark-blue);
-    margin-bottom: 0.5rem;
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-}
-
-.euler-info p {
-    color: var(--dark-blue);
-    opacity: 0.8;
-    font-size: 0.95rem;
-    line-height: 1.4;
-}
-
-.mathematical-symbols {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    font-size: 2.5rem;
-    color: var(--gold);
-    flex-wrap: wrap;
-}
-
-.mathematical-symbols span {
-    display: inline-block;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
-    padding: 0.5rem;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(5px);
-}
-
-.mathematical-symbols span:hover {
-    color: #ffed4e;
-    transform: scale(1.3) rotate(15deg);
-    background: rgba(255, 255, 255, 0.2);
-}
-
-/* Keep the floating animation */
-.mathematical-symbols span:nth-child(1) { animation: float 3s ease-in-out 0s infinite alternate; }
-.mathematical-symbols span:nth-child(2) { animation: float 3s ease-in-out 0.5s infinite alternate; }
-.mathematical-symbols span:nth-child(3) { animation: float 3s ease-in-out 1s infinite alternate; }
-.mathematical-symbols span:nth-child(4) { animation: float 3s ease-in-out 1.5s infinite alternate; }
-.mathematical-symbols span:nth-child(5) { animation: float 3s ease-in-out 2s infinite alternate; }
-
-@keyframes float {
-    0% { transform: translateY(0px); }
-    100% { transform: translateY(-12px); }
-}
-
-
-/* Section Styles */
-section {
-    padding: 5rem 0;
-}
-
-.section-header {
-    text-align: center;
-    margin-bottom: 3rem;
-}
-
-.section-header h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 3rem;
-    color: var(--dark-blue);
-    margin-bottom: 1rem;
-}
-
-.euler-quote-small {
-    font-style: italic;
-    color: var(--dark-blue);
-    opacity: 0.8;
-    margin-top: 1rem;
-}
-
-/* About Section */
-.about {
-    background: var(--light-gray);
-}
-
-.about-text h3 {
-    font-size: 2rem;
-    color: var(--dark-blue);
-    margin-bottom: 1rem;
-}
-
-.about-text p {
-    font-size: 1.1rem;
-    margin-bottom: 1.5rem;
-    line-height: 1.8;
-}
-
-.mission-points {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-top: 3rem;
-}
-
-.point {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1.5rem;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-.point i {
-    font-size: 2rem;
-    color: var(--gold);
-}
-
-/* Archive Section */
-.archive {
-    background: var(--beige);
-}
-
-.archive-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-}
-
-.edition-card {
-    background: white;
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
-    position: relative;
-    overflow: hidden;
-}
-
-.edition-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-}
-
-.edition-year {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--dark-blue);
-    margin-bottom: 0.5rem;
-}
-
-.edition-title {
-    font-size: 1.3rem;
-    color: var(--dark-blue);
-    margin-bottom: 1rem;
-}
-
-.edition-stats {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-}
-
-.edition-stats span {
-    color: var(--dark-gray);
-    opacity: 0.8;
-}
-
-.edition-symbol {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 3rem;
-    color: var(--gold);
-    opacity: 0.3;
-}
-
-/* Modalities Section */
-.modalites {
-    background: var(--dark-blue);
-    color: var(--beige);
-}
-
-.modalites .section-header h2,
-.modalites .euler-quote-small {
-    color: var(--beige);
-}
-
-.rules-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-}
-
-.rule-section {
-    background: rgba(245, 245, 220, 0.1);
-    padding: 2rem;
-    border-radius: 15px;
-    border: 1px solid rgba(245, 245, 220, 0.2);
-}
-
-.rule-section h3 {
-    color: var(--gold);
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.rule-section ul {
-    list-style: none;
-}
-
-.rule-section li {
-    padding: 0.5rem 0;
-    border-bottom: 1px solid rgba(245, 245, 220, 0.1);
-}
-
-.rule-section li:before {
-    content: "→";
-    color: var(--gold);
-    margin-right: 0.5rem;
-}
-
-/* Next Edition Section */
-.next-edition {
-    background: var(--beige);
-}
-
-.edition-details {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-bottom: 3rem;
-}
-
-.detail-card {
-    background: white;
-    padding: 2rem;
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-.detail-card i {
-    font-size: 3rem;
-    color: var(--gold);
-    margin-bottom: 1rem;
-}
-
-.detail-card h3 {
-    color: var(--dark-blue);
-    margin-bottom: 1rem;
-}
-
-.detail-card p {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--dark-blue);
-    margin-bottom: 0.5rem;
-}
-
-.detail-card span {
-    color: var(--dark-gray);
-    opacity: 0.8;
-}
-
-.registration-cta {
-    text-align: center;
-    background: var(--dark-blue);
-    color: var(--beige);
-    padding: 3rem;
-    border-radius: 20px;
-}
-
-.registration-cta h3 {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-}
-
-.register-btn {
-    background: var(--gold);
-    color: var(--dark-blue);
-    border: none;
-    padding: 1rem 3rem;
-    font-size: 1.2rem;
-    font-weight: 600;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: transform 0.3s;
-}
-
-.register-btn:hover {
-    transform: scale(1.05);
-}
-
-.registration-note {
-    margin-top: 1rem;
-    opacity: 0.8;
-}
-
-/* Hall of Fame Section */
-/* Hall of Fame Section */
-.hall-of-fame {
-    background: var(--light-gray);
-}
-
-/* Enhanced search container styles */
-.search-container {
-    position: relative;
-    max-width: 500px;
-    margin: 0 auto 3rem;
-}
-
-.search-container input {
-    width: 100%;
-    padding: 1rem 4rem 1rem 1rem;
-    border: 2px solid var(--dark-blue);
-    border-radius: 50px;
-    font-size: 1rem;
-    outline: none;
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-.search-container input:focus {
-    border-color: var(--gold);
-    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
-}
-
-.search-container .fa-search {
-    position: absolute;
-    right: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--dark-blue);
-    pointer-events: none;
-}
-
-.clear-search:hover {
-    color: #dc3545 !important;
-}
-
-/* Improved table responsiveness */
-.participants-table {
-    overflow-x: auto;
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    margin-top: 1rem;
-}
-
-/* Search message styling */
-#searchMessage {
-    animation: fadeIn 0.3s ease-in;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-
-.legend {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-}
-
-.legend-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.legend-item span:first-child {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-}
-
-.perfect-score {
-    background: var(--gold) !important;
-}
-
-.elegant-solution {
-    background: #9370DB !important;
-}
-
-.outstanding-performance {
-    background: #32CD32 !important;
-}
-
-.participants-table {
-    overflow-x: auto;
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th, td {
-    padding: 1rem;
-    text-align: left;
-    border-bottom: 1px solid #eee;
-}
-
-th {
-    background: var(--dark-blue);
-    color: var(--beige);
-    font-weight: 600;
-}
-
-tr:hover {
-    background: rgba(255, 215, 0, 0.1);
-}
-
-
-/* Footer */
-.footer {
-    background: var(--dark-blue);
-    color: var(--beige);
-    padding: 3rem 0 1rem;
-}
-
-.footer-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-bottom: 2rem;
-}
-
-.footer-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-}
-
-.footer-section h4 {
-    color: var(--gold);
-    margin-bottom: 1rem;
-}
-
-.footer-section ul {
-    list-style: none;
-}
-
-.footer-section li {
-    margin-bottom: 0.5rem;
-}
-
-.footer-section a {
-    color: var(--beige);
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-.footer-section a:hover {
-    color: var(--gold);
-}
-
-.footer-bottom {
-    text-align: center;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(245, 245, 220, 0.2);
-    opacity: 0.8;
-}
-
-/* Modal */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 2000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.5);
-}
-
-.modal-content {
-    background-color: white;
-    margin: 5% auto;
-    padding: 2rem;
-    border-radius: 15px;
-    width: 90%;
-    max-width: 800px;
-    max-height: 80vh;
-    overflow-y: auto;
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.close:hover {
-    color: var(--dark-blue);
-}
-
-/* Responsive Design
-@media (max-width: 768px) {
-    .hamburger {
-        display: flex;
-    }
-    
-    .nav-menu {
-        position: fixed;
-        left: -100%;
-        top: 70px;
-        flex-direction: column;
-        background-color: var(--dark-blue);
-        width: 100%;
-        text-align: center;
-        transition: 0.3s;
-        padding: 2rem 0;
-    }
-    
-    .nav-menu.active {
-        left: 0;
-    }
-    
-    .hero-content {
-        flex-direction: column;
-    }
-    
-    .hero-left, .hero-right {
-        width: 100%;
-        height: 50vh;
-    }
-    
-    .diagonal-split {
-        left: 0;
-        top: 45%;
-        width: 100%;
-        height: 10%;
-        background: linear-gradient(0deg, var(--beige) 50%, var(--dark-blue) 50%);
-    }
-    
-    .hero h1 {
-        font-size: 2.5rem;
-    }
-    
-    .section-header h2 {
-        font-size: 2rem;
-    }
-    
-    .legend {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .rules-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .edition-details {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 480px) {
-    .hero h1 {
-        font-size: 2rem;
-    }
-    
-    .hero-left, .hero-right {
-        padding: 1rem 2rem;
-    }
-    
-    .container {
-        padding: 0 15px;
-    }
-    
-    section {
-        padding: 3rem 0;
-    }
-} */
-
-/* Responsive Design - UPDATED */
-@media (max-width: 768px) {
-    .hero {
-        padding-top: 70px;
-        min-height: auto;
-    }
-    
-    .hero-content {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-        text-align: center;
-        padding: 2rem 1rem;
-    }
-    
-    .hero h1 {
-        font-size: 3rem;
-    }
-    
-    .hero-subtitle {
-        font-size: 1.2rem;
-    }
-    
-    .portrait-container {
-        width: 250px;
-        height: 250px;
-    }
-    
-    .mathematical-symbols {
-        font-size: 2rem;
-        gap: 1.5rem;
-    }
-    
-    .cta-container {
-        justify-content: center;
-    }
-}
-
-@media (max-width: 480px) {
-    .hero h1 {
-        font-size: 2.5rem;
-    }
-    
-    .hero-content {
-        padding: 1.5rem 1rem;
-    }
-    
-    .portrait-container {
-        width: 200px;
-        height: 200px;
-    }
-    
-    .mathematical-symbols {
-        font-size: 1.8rem;
-        gap: 1rem;
-    }
-    
-    .cta-button {
-        padding: 1rem 2rem;
-        font-size: 1rem;
-    }
-    
-    .euler-quote {
-        padding: 1.5rem;
-    }
-}
-
-</style>
-    <script>
-        // ===== NAVBAR FUNCTIONALITY =====
-document.addEventListener('DOMContentLoaded', function() {
-    const hamburger = document.querySelector('.hamburger');
-    const navMenu = document.querySelector('.nav-menu');
-    const navOverlay = document.querySelector('.nav-overlay');
-    const navLinks = document.querySelectorAll('.nav-link');
-    const navbar = document.querySelector('.navbar');
-
-    // Toggle mobile menu
-    function toggleMobileMenu() {
-        hamburger.classList.toggle('active');
-        navMenu.classList.toggle('active');
-        navOverlay.classList.toggle('active');
-        
-        // Prevent body scroll when menu is open
-        if (navMenu.classList.contains('active')) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
-        }
-    }
-
-    // Close mobile menu
-    function closeMobileMenu() {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
-        navOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-
-    // Check if device is mobile
-    function isMobile() {
-        return window.innerWidth <= 768;
-    }
-
-    // Event listeners
-    if (hamburger) {
-        hamburger.addEventListener('click', toggleMobileMenu);
-    }
-
-    if (navOverlay) {
-        navOverlay.addEventListener('click', closeMobileMenu);
-    }
-
-    // Close menu when clicking on nav links (only on mobile)
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            // Only close mobile menu if we're on mobile
-            if (isMobile()) {
-                closeMobileMenu();
-            }
-            
-            // Update active link
-            navLinks.forEach(l => l.classList.remove('active'));
-            link.classList.add('active');
-        });
-    });
-
-    // Close menu on escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && navMenu.classList.contains('active')) {
-            closeMobileMenu();
-        }
-    });
-
-    // Simple navbar scroll effect
-    window.addEventListener('scroll', () => {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        if (scrollTop > 100) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    });
-
-    // Handle window resize
-    window.addEventListener('resize', () => {
-        if (window.innerWidth > 768) {
-            closeMobileMenu();
-        }
-    });
-
-    // Update active link based on scroll position
-    function updateActiveLink() {
-        const sections = document.querySelectorAll('section[id]');
-        const scrollPos = window.scrollY + 100;
-        
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            const sectionId = section.getAttribute('id');
-            
-            if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${sectionId}`) {
-                        link.classList.add('active');
-                    }
-                });
-            }
-        });
-    }
-
-    // Debounce function for better performance
-    function debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    }
-
-    const debouncedUpdateActiveLink = debounce(updateActiveLink, 10);
-    window.addEventListener('scroll', debouncedUpdateActiveLink);
-
-});
-
-// ===== SMOOTH SCROLLING =====
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            const offsetTop = target.offsetTop - 80; // Account for fixed navbar
-            window.scrollTo({
-                top: offsetTop,
-                behavior: 'smooth'
-            });
-        }
-    });
-});
-
-// ===== SEARCH FUNCTIONALITY =====
-function initializeSearch() {
-    const searchInput = document.getElementById('searchInput');
-    const participantsTable = document.getElementById('participantsTable');
-    
-    if (!searchInput || !participantsTable) {
-        console.log('Search elements not found, retrying...');
-        setTimeout(initializeSearch, 100);
-        return;
-    }
-    
-    console.log('Search functionality initialized');
-    
-    // Function to perform search
-    function performSearch() {
-        const searchTerm = searchInput.value.toLowerCase().trim();
-        const tbody = participantsTable.querySelector('tbody');
-        
-        if (!tbody) {
-            console.error('Table body not found');
-            return;
-        }
-        
-        const rows = tbody.querySelectorAll('tr');
-        let visibleCount = 0;
-        
-        rows.forEach(row => {
-            const cells = row.querySelectorAll('td');
-            let rowText = '';
-            
-            cells.forEach(cell => {
-                rowText += cell.textContent.toLowerCase() + ' ';
-            });
-            
-            if (searchTerm === '' || rowText.includes(searchTerm)) {
-                row.style.display = '';
-                visibleCount++;
-            } else {
-                row.style.display = 'none';
-            }
-        });
-        
-        // Show message if no results found
-        showSearchResults(visibleCount, searchTerm);
-    }
-    
-    // Show search results message
-    function showSearchResults(count, term) {
-        let messageDiv = document.getElementById('searchMessage');
-        
-        if (!messageDiv) {
-            messageDiv = document.createElement('div');
-            messageDiv.id = 'searchMessage';
-            messageDiv.style.cssText = `
-                text-align: center;
-                padding: 1rem;
-                margin: 1rem 0;
-                border-radius: 10px;
-                font-weight: 500;
-            `;
-            participantsTable.parentNode.insertBefore(messageDiv, participantsTable);
-        }
-        
-        if (term && count === 0) {
-            messageDiv.innerHTML = `
-                <div style="color: #dc3545; background: #f8d7da; padding: 1rem; border-radius: 10px;">
-                    <i class="fas fa-search"></i> No participants found matching "${term}"
-                </div>
-            `;
-            messageDiv.style.display = 'block';
-        } else if (term && count > 0) {
-            messageDiv.innerHTML = `
-                <div style="color: #155724; background: #d4edda; padding: 1rem; border-radius: 10px;">
-                    <i class="fas fa-check"></i> Found ${count} participant${count !== 1 ? 's' : ''} matching "${term}"
-                </div>
-            `;
-            messageDiv.style.display = 'block';
-        } else {
-            messageDiv.style.display = 'none';
-        }
-    }
-    
-    // Add event listeners
-    searchInput.addEventListener('input', performSearch);
-    searchInput.addEventListener('keyup', function(e) {
-        if (e.key === 'Enter') {
-            performSearch();
-        }
-    });
-    
-    // Add clear button functionality
-    const searchContainer = searchInput.parentElement;
-    let clearButton = searchContainer.querySelector('.clear-search');
-    
-    if (!clearButton) {
-        clearButton = document.createElement('button');
-        clearButton.className = 'clear-search';
-        clearButton.innerHTML = '<i class="fas fa-times"></i>';
-        clearButton.style.cssText = `
-            position: absolute;
-            right: 3rem;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: var(--dark-blue);
-            cursor: pointer;
-            font-size: 1rem;
-            padding: 0.5rem;
-            display: none;
-        `;
-        searchContainer.appendChild(clearButton);
-    }
-    
-    // Show/hide clear button
-    searchInput.addEventListener('input', function() {
-        if (this.value.length > 0) {
-            clearButton.style.display = 'block';
-        } else {
-            clearButton.style.display = 'none';
-        }
-    });
-    
-    // Clear search functionality
-    clearButton.addEventListener('click', function() {
-        searchInput.value = '';
-        clearButton.style.display = 'none';
-        performSearch();
-        searchInput.focus();
-    });
-    
-    console.log('Search event listeners added successfully');
-}
-
-// Initialize search when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded, initializing search...');
-    setTimeout(initializeSearch, 500);
-});
-
-// Also try to initialize search when the hall of fame section comes into view
-const hallOfFameObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            console.log('Hall of Fame section visible, initializing search...');
-            initializeSearch();
-            hallOfFameObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.1 });
-
-// Observe the hall of fame section
-document.addEventListener('DOMContentLoaded', function() {
-    const hallOfFameSection = document.getElementById('hall-of-fame');
-    if (hallOfFameSection) {
-        hallOfFameObserver.observe(hallOfFameSection);
-    }
-});
-
-// ===== EDITION MODAL FUNCTIONALITY =====
-const modal = document.getElementById('editionModal');
-const modalContent = document.getElementById('modalContent');
-const closeBtn = document.querySelector('.close');
-
-function openEdition(year) {
-    const editionData = {
-        2023: {
-            title: "The Golden Ratio Challenge 2023",
-            date: "May 20, 2023",
-            location: "École Polytechnique, Palaiseau",
-            participants: 1247,
-            countries: 45,
-            problems: [
-                "Prove that φ² = φ + 1 where φ is the golden ratio",
-                "Find all integer solutions to the Fibonacci recurrence",
-                "Geometric construction using golden ratio properties",
-                "Optimization problem involving golden rectangles",
-                "Number theory application of continued fractions",
-                "Advanced problem on Lucas sequences"
-            ],
-            podium: [
-                { name: "Marie Dubois", country: "France", score: "42/42" },
-                { name: "Alessandro Rossi", country: "Italy", score: "39/42" },
-                { name: "Chen Wei", country: "China", score: "38/42" }
-            ],
-            statistics: {
-                averageScore: 24.7,
-                perfectScores: 1,
-                goldMedals: 62,
-                silverMedals: 125,
-                bronzeMedals: 187
-            }
-        },
-        2022: {
-            title: "Infinite Series Mastery 2022",
-            date: "May 21, 2022",
-            location: "Sorbonne University, Paris",
-            participants: 1089,
-            countries: 38,
-            problems: [
-                "Convergence of alternating harmonic series",
-                "Sum of reciprocals of perfect squares",
-                "Telescoping series applications",
-                "Power series representation of functions",
-                "Fourier series convergence theorem",
-                "Advanced infinite product evaluation"
-            ],
-            podium: [
-                { name: "Chen Wei", country: "China", score: "42/42" },
-                { name: "Priya Sharma", country: "India", score: "41/42" },
-                { name: "Erik Larsson", country: "Sweden", score: "40/42" }
-            ],
-            statistics: {
-                averageScore: 23.2,
-                perfectScores: 1,
-                goldMedals: 54,
-                silverMedals: 109,
-                bronzeMedals: 163
-            }
-        },
-        2021: {
-            title: "Graph Theory Expedition 2021",
-            date: "May 22, 2021",
-            location: "Online (COVID-19)",
-            participants: 892,
-            countries: 32,
-            problems: [
-                "Euler's theorem on planar graphs",
-                "Hamiltonian path existence proof",
-                "Graph coloring optimization",
-                "Network flow maximum theorem",
-                "Tree enumeration problem",
-                "Advanced spectral graph theory"
-            ],
-            podium: [
-                { name: "João Silva", country: "Brazil", score: "40/42" },
-                { name: "Anna Kowalski", country: "Poland", score: "38/42" },
-                { name: "Raj Patel", country: "India", score: "37/42" }
-            ],
-            statistics: {
-                averageScore: 21.8,
-                perfectScores: 0,
-                goldMedals: 45,
-                silverMedals: 89,
-                bronzeMedals: 134
-            }
-        },
-        2020: {
-            title: "Number Theory Foundations 2020",
-            date: "May 16, 2020",
-            location: "Online (COVID-19)",
-            participants: 756,
-            countries: 28,
-            problems: [
-                "Prime number distribution theorem",
-                "Diophantine equation solutions",
-                "Modular arithmetic applications",
-                "Quadratic residues and reciprocity",
-                "Continued fraction expansions",
-                "Advanced divisibility proofs"
-            ],
-            podium: [
-                { name: "David Kim", country: "South Korea", score: "42/42" },
-                { name: "Sofia Petrov", country: "Russia", score: "39/42" },
-                { name: "Ahmed Hassan", country: "Egypt", score: "38/42" }
-            ],
-            statistics: {
-                averageScore: 20.5,
-                perfectScores: 1,
-                goldMedals: 38,
-                silverMedals: 76,
-                bronzeMedals: 113
-            }
-        }
-    };
-
-    const data = editionData[year];
-    if (!data) return;
-
-    modalContent.innerHTML = `
-        <h2>${data.title}</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 2rem 0;">
-            <div><strong>Date:</strong> ${data.date}</div>
-            <div><strong>Location:</strong> ${data.location}</div>
-            <div><strong>Participants:</strong> ${data.participants}</div>
-            <div><strong>Countries:</strong> ${data.countries}</div>
-        </div>
-        
-        <h3>Problems</h3>
-        <ol style="margin: 1rem 0;">
-            ${data.problems.map(problem => `<li style="margin: 0.5rem 0;">${problem}</li>`).join('')}
-        </ol>
-        
-        <h3>Podium</h3>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0;">
-            ${data.podium.map((winner, index) => `
-                <div style="text-align: center; padding: 1rem; background: ${index === 0 ? '#FFD700' : index === 1 ? '#C0C0C0' : '#CD7F32'}; border-radius: 10px;">
-                    <div style="font-size: 2rem;">${index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'}</div>
-                    <div><strong>${winner.name}</strong></div>
-                    <div>${winner.country}</div>
-                    <div>${winner.score}</div>
-                </div>
-            `).join('')}
-        </div>
-        
-        <h3>Statistics</h3>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin: 1rem 0;">
-            <div><strong>Average Score:</strong> ${data.statistics.averageScore}</div>
-            <div><strong>Perfect Scores:</strong> ${data.statistics.perfectScores}</div>
-            <div><strong>Gold Medals:</strong> ${data.statistics.goldMedals}</div>
-            <div><strong>Silver Medals:</strong> ${data.statistics.silverMedals}</div>
-            <div><strong>Bronze Medals:</strong> ${data.statistics.bronzeMedals}</div>
-        </div>
-    `;
-    modal.style.display = 'block';
-}
-
-// Close modal functionality
-if (closeBtn) {
-    closeBtn.addEventListener('click', () => {
-        modal.style.display = 'none';
-    });
-}
-
-window.addEventListener('click', (e) => {
-    if (e.target === modal) {
-        modal.style.display = 'none';
-    }
-});
-
-// ===== ANIMATIONS AND EFFECTS =====
-// Animated counter for statistics
-function animateCounter(element, target, duration = 2000) {
-    let start = 0;
-    const increment = target / (duration / 16);
-    
-    const timer = setInterval(() => {
-        start += increment;
-        element.textContent = Math.floor(start);
-        
-        if (start >= target) {
-            element.textContent = target;
-            clearInterval(timer);
-        }
-    }, 16);
-}
-
-// Intersection Observer for animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('animate');
-            
-            // Animate counters when they come into view
-            if (entry.target.classList.contains('edition-stats')) {
-                const numbers = entry.target.querySelectorAll('[data-count]');
-                numbers.forEach(num => {
-                    const target = parseInt(num.getAttribute('data-count'));
-                    animateCounter(num, target);
-                });
-            }
-        }
-    });
-}, observerOptions);
-
-// Mathematical symbols animation in hero section
-function animateSymbols() {
-    const symbols = document.querySelectorAll('.mathematical-symbols span');
-    symbols.forEach((symbol, index) => {
-        symbol.style.animation = `float 3s ease-in-out ${index * 0.5}s infinite alternate`;
-    });
-}
-
-// Add floating animation CSS dynamically
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes float {
-        0% { transform: translateY(0px); }
-        100% { transform: translateY(-20px); }
-    }
-    
-    .animate {
-        animation: fadeInUp 0.8s ease-out forwards;
-    }
-    
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    
-    .edition-card {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: all 0.8s ease-out;
-    }
-    
-    .edition-card.animate {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    
-    .detail-card, .point, .rule-section {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: all 0.6s ease-out;
-    }
-    
-    .detail-card.animate, .point.animate, .rule-section.animate {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    
-    @keyframes bounceIn {
-        0% {
-            opacity: 0;
-            transform: translate(-50%, -50%) scale(0.3);
-        }
-        50% {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1.05);
-        }
-        70% {
-            transform: translate(-50%, -50%) scale(0.9);
-        }
-        100% {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-        }
-    }
-`;
-document.head.appendChild(style);
-
-// ===== EVENT LISTENERS AND INITIALIZATION =====
-document.addEventListener('DOMContentLoaded', () => {
-    // Initialize animations
-    animateSymbols();
-    
-    // Observe elements for animation
-    const animatedElements = document.querySelectorAll('.edition-card, .detail-card, .point, .rule-section');
-    animatedElements.forEach(el => observer.observe(el));
-    
-    // Add staggered animation to archive cards
-    const archiveCards = document.querySelectorAll('.edition-card');
-    archiveCards.forEach((card, index) => {
-        card.style.animationDelay = `${index * 0.2}s`;
-    });
-    
-    // Add event listeners for CTA buttons
-    const ctaButtons = document.querySelectorAll('.cta-button, .register-btn');
-    ctaButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-            e.preventDefault();
-            const nextEdition = document.getElementById('next-edition');
-            if (nextEdition) {
-                nextEdition.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
-    });
-});
-
-// ===== EASTER EGG - KONAMI CODE =====
-let konamiCode = [];
-const konamiSequence = [
-    'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
-    'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',
-    'KeyB', 'KeyA'
-];
-
-document.addEventListener('keydown', (e) => {
-    konamiCode.push(e.code);
-    
-    if (konamiCode.length > konamiSequence.length) {
-        konamiCode.shift();
-    }
-    
-    if (konamiCode.join(',') === konamiSequence.join(',')) {
-        showEulerEasterEgg();
-        konamiCode = [];
-    }
-});
-
-function showEulerEasterEgg() {
-    const easterEgg = document.createElement('div');
-    easterEgg.style.cssText = `
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: var(--gold);
-        color: var(--dark-blue);
-        padding: 2rem;
-        border-radius: 15px;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        z-index: 3000;
-        text-align: center;
-        max-width: 500px;
-        animation: bounceIn 0.8s ease-out;
-    `;
-    
-    easterEgg.innerHTML = `
-        <h3>🎉 Euler's Secret Quote! 🎉</h3>
-        <p style="font-style: italic; margin: 1rem 0;">
-            "For the sake of a single verse he would destroy the whole world."
-        </p>
-        <p style="font-size: 0.9rem; opacity: 0.8;">
-            - Leonhard Euler (on the beauty of mathematics)
-        </p>
-        <button onclick="this.parentElement.remove()" style="
-            background: var(--dark-blue);
-            color: var(--gold);
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            cursor: pointer;
-            margin-top: 1rem;
-        ">Close</button>
-    `;
-    
-    document.body.appendChild(easterEgg);
-    
-    // Auto-remove after 10 seconds
-    setTimeout(() => {
-        if (easterEgg.parentElement) {
-            easterEgg.remove();
-        }
-    }, 10000);
-}
-
-// ===== LAZY LOADING FOR IMAGES =====
-function lazyLoadImages() {
-    const images = document.querySelectorAll('img[data-src]');
-    const imageObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.classList.remove('lazy');
-                imageObserver.unobserve(img);
-            }
-        });
-    });
-    
-    images.forEach(img => imageObserver.observe(img));
-}
-
-// Initialize lazy loading
-document.addEventListener('DOMContentLoaded', lazyLoadImages);
-
-// ===== NAVBAR BACKGROUND SCROLL EFFECT =====
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-// Apply debouncing to scroll events
-const debouncedScrollHandler = debounce(() => {
-    const navbar = document.querySelector('.navbar');
-    if (navbar) {
-        if (window.scrollY > 100) {
-            navbar.style.background = 'rgba(27, 41, 81, 0.98)';
-        } else {
-            navbar.style.background = 'rgba(27, 41, 81, 0.95)';
-        }
-    }
-}, 10);
-
-window.addEventListener('scroll', debouncedScrollHandler);
-
-// ===== FORM VALIDATION =====
-function validateRegistration(form) {
-    const requiredFields = form.querySelectorAll('[required]');
-    let isValid = true;
-    
-    requiredFields.forEach(field => {
-        if (!field.value.trim()) {
-            field.classList.add('error');
-            isValid = false;
-        } else {
-            field.classList.remove('error');
-        }
-    });
-    
-    return isValid;
-}
-
-// ===== CONSOLE MESSAGES =====
-console.log('🧮 Euler\'s Challenges website loaded successfully!');
-console.log('💡 Try the Konami code for a special surprise!');
-
-
-    </script>
 </body>
 </html>
